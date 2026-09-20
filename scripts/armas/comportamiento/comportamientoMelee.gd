@@ -1,0 +1,2 @@
+extends comportamientoArma
+class_name ComportamientoMelee
