@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4q8uea8d6p8k"]
 
 [ext_resource type="Script" uid="uid://cyavwb4iw6rub" path="res://scenes/ui/main_menu.gd" id="1_sl1te"]
-[ext_resource type="Texture2D" uid="uid://b4o7vx0n8db1s" path="res://addons/tube/icons/tube_client.svg" id="2_fe2o3"]
+[ext_resource type="Texture2D" uid="uid://baswjgafmqv42" path="res://addons/tube/icons/tube_client.svg" id="2_fe2o3"]
 [ext_resource type="PackedScene" uid="uid://yubh30707eb7" path="res://scenes/environment/world_forest.tscn" id="3_1g8jr"]
 [ext_resource type="PackedScene" uid="uid://b6hkal1627qjh" path="res://scenes/ui/texture_button.tscn" id="3_m1kxf"]
 [ext_resource type="LabelSettings" uid="uid://bgv5dgaftscvt" path="res://assets/fuentes/label_peque_setting.tres" id="3_wb0q5"]
@@ -503,6 +503,7 @@ color = "#ffff32"
 texto = "UN JUGADOR"
 
 [node name="multijugador" parent="Control/Control/menu_principal" unique_id=1422080423 instance=ExtResource("3_m1kxf")]
+visible = false
 layout_mode = 0
 offset_left = 117.0
 offset_top = 145.43048
