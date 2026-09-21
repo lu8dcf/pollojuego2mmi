@@ -36,6 +36,10 @@ properties/4/replication_mode = 2
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sugfe"]
 radius = 5.5029297
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l1is7"]
+height = 0.60424805
+radius = 0.63623047
+
 [node name="enemy0" type="CharacterBody3D" unique_id=447184950]
 collision_layer = 2
 script = ExtResource("1_qypkf")
@@ -56,7 +60,7 @@ replication_config = SubResource("SceneReplicationConfig_qypkf")
 [node name="Timer" type="Timer" parent="." unique_id=1893234336]
 
 [node name="modelo" type="Node3D" parent="." unique_id=1013882562]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0020587444, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1953029, 0)
 visible = false
 
 [node name="movimiento" type="Node3D" parent="." unique_id=2038556398]
@@ -77,5 +81,17 @@ script = ExtResource("3_l1is7")
 
 [node name="Evasion" type="Node" parent="." unique_id=1194008103]
 
+[node name="bigote" type="Area3D" parent="." unique_id=327422282]
+collision_layer = 0
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bigote" unique_id=1767797464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4678955, 0)
+shape = SubResource("CylinderShape3D_l1is7")
+
 [connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
+[connection signal="area_entered" from="bigote" to="." method="_on_bigote_area_entered"]
+[connection signal="area_exited" from="bigote" to="." method="_on_bigote_area_exited"]
+[connection signal="body_entered" from="bigote" to="." method="_on_bigote_body_entered"]
+[connection signal="body_exited" from="bigote" to="." method="_on_bigote_body_exited"]

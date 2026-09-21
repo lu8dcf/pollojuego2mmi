@@ -330,7 +330,20 @@ func _on_vision_body_exited(body: Node3D) -> void:
 		
 
 
-
-#	if !posicionado:
-#		queue_free()
+func _on_bigote_area_entered(area: Area3D) -> void:
 	
+	if !posicionado:
+		print("elim")
+		#queue_free()
+		
+
+func _on_bigote_area_exited(area: Area3D) -> void:
+	pass # Replace with function body.
+
+
+func _on_bigote_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.
+
+
+func _on_bigote_body_exited(body: Node3D) -> void:
+	pass # Replace with function body.
