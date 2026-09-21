@@ -3,11 +3,12 @@ extends Node
 class_name Evasion
 
 # ==================== CONFIGURACIÓN ====================
-@export var velocidad_evasion: float = 1.5       # Velocidad lenta al evadir
-@export var tiempo_max_evasion: float = 2.0      # Tiempo máximo evadiendo antes de retroceder
-@export var tiempo_retroceso: float = 1.0        # Duración del retroceso
-@export var angulo_giro: float = 45.0            # Ángulo máximo de giro aleatorio (grados)
-@export var suavizado: float = 5.0               # Suavizado de la rotación
+@export var velocidad_evasion: float = 2      # Velocidad lenta al evadir
+@export var tiempo_max_evasion: float = 2      # Tiempo máximo evadiendo antes de retroceder
+@export var tiempo_retroceso: float = 1        # Duración del retroceso
+@export var angulo_giro: float = 90.0            # Ángulo máximo de giro aleatorio (grados)
+@export var suavizado: float = 2.0               # Suavizado de la rotación
+
 
 # ==================== ESTADO INTERNO ====================
 var evasion_activa: bool = false
@@ -19,13 +20,14 @@ var ultima_direccion: Vector3 = Vector3.FORWARD
 var nodo_padre: Node3D = null
 var area_deteccion: Area3D = null
 var debug_activo: bool = false
+var tipos_retroceso=0
 
 
 # ==================== LÓGICA PRINCIPAL ====================
 # Devuelve la velocidad de evasión (o Vector3.ZERO si no hay evasión activa)
 func calcular_evasion(direccion_actual: Vector3, delta: float) -> Vector3:
-	#if not evasion_activa:
-		#return Vector3.ZERO
+	if not evasion_activa:
+		return Vector3.ZERO
 	
 	# Actualizar tiempo de evasión
 	tiempo_evasion += delta
@@ -58,8 +60,7 @@ func _activar_evasion() -> void:
 	tiempo_evasion = 0.0
 	_generar_direccion_aleatoria()
 	
-	if debug_activo:
-		print("🚧 Evasión activada")
+	
 
 func _generar_direccion_aleatoria() -> void:
 	# Tomar la dirección actual y girarla un ángulo aleatorio
@@ -69,56 +70,43 @@ func _generar_direccion_aleatoria() -> void:
 	var nueva_direccion := ultima_direccion.rotated(Vector3.UP, angulo)
 	nueva_direccion.y = 0
 	direccion_evasion = nueva_direccion.normalized()
+	print ("evasion ",direccion_evasion)
 	
-	if debug_activo:
-		print("🔄 Nueva dirección de evasión: ", direccion_evasion)
+	
 
 func _iniciar_retroceso() -> void:
 	retrocediendo = true
 	tiempo_retroceso_restante = tiempo_retroceso
 	# Retroceder en dirección opuesta a la actual
-	direccion_evasion = -ultima_direccion
+	match tipos_retroceso:
+		1:
+			direccion_evasion = -ultima_direccion
+		2:
+			direccion_evasion = ultima_direccion.rotated(Vector3.UP, deg_to_rad(90))
+		3:
+			direccion_evasion = ultima_direccion.rotated(Vector3.UP, deg_to_rad(-90))
+		4:
+			direccion_evasion = ultima_direccion.rotated(Vector3.UP, deg_to_rad(-45))	
+	
+		5:
+			direccion_evasion = ultima_direccion.rotated(Vector3.UP, deg_to_rad(+135))
+	tipos_retroceso+=1
+	if tipos_retroceso ==6:
+		tipos_retroceso=1	
 	direccion_evasion.y = 0
 	direccion_evasion = direccion_evasion.normalized()
 	
-	if debug_activo:
-		print("⏪ Retrocediendo")
-
+	
 # ==================== SEÑALES DEL ÁREA ====================
-func _on_body_entered(body: Node3D) -> void:
-	if body is StaticBody3D or body is CharacterBody3D:
-		_activar_evasion()
 
-func _on_body_exited(body: Node3D) -> void:
-	# Si ya no hay colisiones, desactivar evasión
-	_verificar_salida()
-
-func _on_area_entered(area: Area3D) -> void:
-	_activar_evasion()
-
-func _on_area_exited(area: Area3D) -> void:
-	_verificar_salida()
 
 func _verificar_salida() -> void:
-	# Si el área ya no tiene colisiones, desactivar evasión
-	if area_deteccion and area_deteccion.get_overlapping_bodies().is_empty() and area_deteccion.get_overlapping_areas().is_empty():
-		evasion_activa = false
-		retrocediendo = false
-		tiempo_evasion = 0.0
-		direccion_evasion = Vector3.ZERO
+	evasion_activa = false
+	retrocediendo = false
+	tiempo_evasion = 0.0
+	direccion_evasion = Vector3.ZERO
 		
-		if debug_activo:
-			print("✅ Evasión desactivada")
-
-# ==================== CONSULTAS ====================
-func esta_evadiendo() -> bool:
-	return evasion_activa
-
-func esta_retrocediendo() -> bool:
-	return retrocediendo
-
-func get_direccion_evasion() -> Vector3:
-	return direccion_evasion
+		
 
 # ==================== UTILIDADES ====================
 func set_velocidad(nueva_velocidad: float) -> void:

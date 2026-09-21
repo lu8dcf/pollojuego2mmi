@@ -336,12 +336,12 @@ func _on_bigote_area_entered(area: Area3D) -> void:
 		estado_anterior=estado_actual
 		
 	estado_actual=estado.EVASION
-	
+	evasion._activar_evasion()
 		
 
 func _on_bigote_area_exited(area: Area3D) -> void:
 	estado_actual=estado_anterior
-
+	evasion._verificar_salida()
 
 func _on_bigote_body_entered(body: Node3D) -> void:
 	if !posicionado:
@@ -350,7 +350,8 @@ func _on_bigote_body_entered(body: Node3D) -> void:
 		estado_anterior=estado_actual
 		
 	estado_actual=estado.EVASION
-
+	evasion._activar_evasion()
 
 func _on_bigote_body_exited(body: Node3D) -> void:
 	estado_actual=estado_anterior
+	evasion._verificar_salida()
