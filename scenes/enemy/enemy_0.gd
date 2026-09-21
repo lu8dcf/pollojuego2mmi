@@ -200,7 +200,7 @@ func _physics_process(delta: float) -> void:
 			delta)
 			
 		
-		estado.PERSIGUE:
+		estado.PERSIGUE: #seek
 			var distancia = Vector2(
 				jugador.global_position.x - global_position.x,
 				jugador.global_position.z - global_position.z
@@ -234,7 +234,7 @@ func _physics_process(delta: float) -> void:
 				velocidad_actual.z = direccion.z * velocidad_final
 
 			# Rotar hacia el jugador
-			look_at(jugador.global_position, Vector3.UP)
+			#look_at(jugador.global_position, Vector3.UP)
 	
 		estado.FLEE:
 			# Si se aleja lo suficiente, volver a WANDER
@@ -333,7 +333,7 @@ func _on_vision_body_exited(body: Node3D) -> void:
 func _on_bigote_area_entered(area: Area3D) -> void:
 	
 	if !posicionado:
-		print("elim")
+		pass
 		#queue_free()
 		
 
