@@ -56,6 +56,10 @@ enum estado {
 @onready var bigote_der: Area3D = $bigote_der
 @onready var bigote_izq: Area3D = $bigote_izq
 var posicionado = false  # cuando se encuentre correctamente en el piso sin tocar la pared
+# seek persigue
+@export var distancia_frenado: float =5.0     # A qué distancia empieza a frenar
+@export var distancia_llegada: float = 1.0   # A qué distancia se detiene
+
 
 func _ready():
 	# Areas de colision
@@ -192,18 +196,39 @@ func _physics_process(delta: float) -> void:
 			global_position,
 			direccion_actual,
 			delta)
-			look_at(global_position, Vector3.UP)
+			
 		
 		estado.PERSIGUE:
-			velocidad = velocidad_base * 2
-			#----------------  sigue al jugador
+			var distancia = Vector2(
+				jugador.global_position.x - global_position.x,
+				jugador.global_position.z - global_position.z
+			).length()
+			
+
+			# Si ya llegó, detenerse
+			if distancia <= distancia_llegada:
+				velocidad_actual.x = 0
+				velocidad_actual.z = 0
+				
+			else:
+				# Calcular dirección al jugador (solo XZ)
+				direccion = (jugador.global_position - global_position)
+				direccion.y = 0
+				direccion = direccion.normalized()
+			
+				# Aplicar Arrive: velocidad proporcional a la distancia
+				var factor_velocidad = 1.0
+				if distancia < distancia_frenado:
+					factor_velocidad = distancia / distancia_frenado
+					factor_velocidad = clamp(factor_velocidad, 0.0, 1.0)
+				
+				var velocidad_final = velocidad_base * 2.0 * factor_velocidad
+				
+				velocidad_actual.x = direccion.x * velocidad_final
+				velocidad_actual.z = direccion.z * velocidad_final
+
+			# Rotar hacia el jugador
 			look_at(jugador.global_position, Vector3.UP)
-			 # Moverse hacia adelante (eje -Z)
-			direccion = (jugador.global_position - global_position)
-			direccion.y = 0
-			direccion = direccion.normalized()
-			velocidad_actual.x = direccion.x * velocidad
-			velocidad_actual.z = direccion.z * velocidad
 	
 		estado.FLEE:
 			# Si se aleja lo suficiente, volver a WANDER

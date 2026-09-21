@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://6dr1scr4fnwt" path="res://scenes/pollos/pollo_modelo_1.tscn" id="2_f0vko"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8w0r3"]
-height = 1.0024414
+radius = 0.54541016
+height = 1.0908203
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6bcbl"]
 properties/0/path = NodePath(".:position")
@@ -25,7 +26,7 @@ height = 0.31140137
 
 [node name="character" type="CharacterBody3D" unique_id=997961619]
 collision_layer = 4
-collision_mask = 11
+collision_mask = 43
 script = ExtResource("1_ueyq7")
 
 [node name="camaraRig" parent="." unique_id=654216859 node_paths=PackedStringArray("jugador") instance=ExtResource("2_6htac")]
@@ -35,10 +36,11 @@ jugador = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, 0.7874249, 0.61641055, 0, -0.61641055, 0.7874249, 0, 7.0005903, 7.729801)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1479857195]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5012207, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5296631, 0)
 shape = SubResource("CapsuleShape3D_8w0r3")
 
 [node name="jugador" type="Node3D" parent="." unique_id=977801473]
+visible = false
 
 [node name="brazos" parent="jugador" unique_id=50839711 instance=ExtResource("2_1d7gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -72,6 +74,8 @@ outline_size = 6
 unique_name_in_owner = true
 
 [node name="DeteccionAyuda" type="Area3D" parent="." unique_id=224189718]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeteccionAyuda" unique_id=493757298]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.47852877, 0)

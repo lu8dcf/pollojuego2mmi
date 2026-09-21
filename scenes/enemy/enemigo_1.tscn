@@ -173,10 +173,10 @@ _data = {
 
 [node name="enemigo_1" unique_id=988913052 instance=ExtResource("1_64bgc")]
 
-[node name="Babosa" parent="." index="0" unique_id=1870931991]
-transform = Transform3D(-100, 8.742277e-06, 0, 3.8213708e-13, 4.3711384e-06, 99.99999, 8.742278e-06, 99.99999, -4.3711384e-06, -0.0026805997, 0.0872888, 0.121499516)
+[node name="Babosa" parent="." index="0" unique_id=610981853]
+transform = Transform3D(-100, 8.742277e-06, 0, 3.8213708e-13, 4.3711384e-06, 99.99999, 8.742278e-06, 99.99999, -4.3711384e-06, -0.0026805997, 0.0872888, 0.012626864)
 
-[node name="Skeleton3D" parent="Babosa" index="0" unique_id=1345180836]
+[node name="Skeleton3D" parent="Babosa" index="0" unique_id=781369814]
 bones/0/rotation = Quaternion(0.007864077, 0.00026805987, 0.034050673, 0.99938923)
 bones/0/scale = Vector3(1.0185094, 0.99999994, 0.99999994)
 bones/1/rotation = Quaternion(0.15966076, -2.973798e-09, 1.8997234e-08, 0.98717195)
@@ -189,5 +189,5 @@ bones/8/rotation = Quaternion(-0.4807422, -0.0097623505, -0.025919005, 0.8764246
 bones/9/rotation = Quaternion(0.0033538193, 2.286126e-05, 0.0068098507, 0.9999712)
 bones/10/rotation = Quaternion(-0.4065831, -0.026224751, -0.0496547, 0.9118865)
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=464970619]
+[node name="AnimationPlayer" parent="." index="1" unique_id=261316334]
 libraries/ = SubResource("AnimationLibrary_wha0n")

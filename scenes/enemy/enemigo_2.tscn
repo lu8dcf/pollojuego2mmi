@@ -173,10 +173,10 @@ _data = {
 
 [node name="enemigo_2" unique_id=1964573739 instance=ExtResource("1_irb5k")]
 
-[node name="caracol" parent="." index="0" unique_id=424459542]
-transform = Transform3D(-100, 8.742277e-06, 0, 3.8213708e-13, 4.3711384e-06, 99.99999, 8.742278e-06, 99.99999, -4.3711384e-06, 0.0019161929, 0.08046616, 0.12149953)
+[node name="caracol" parent="." index="0" unique_id=697910932]
+transform = Transform3D(-100, 8.742277e-06, 0, 3.8213708e-13, 4.3711384e-06, 99.99999, 8.742278e-06, 99.99999, -4.3711384e-06, 0.0019161929, 0.08046616, 0.014480703)
 
-[node name="Skeleton3D" parent="caracol" index="0" unique_id=353906747]
+[node name="Skeleton3D" parent="caracol" index="0" unique_id=435609978]
 bones/0/position = Vector3(-7.4505804e-11, -8.829786e-05, 0.0010397452)
 bones/0/rotation = Quaternion(-0.008527723, 1.19204934e-07, -1.0165837e-09, 0.99996364)
 bones/0/scale = Vector3(1, 1.0008308, 1.0008309)
@@ -190,5 +190,5 @@ bones/3/rotation = Quaternion(0.47391614, -2.422192e-14, 1.12990406e-07, 0.88057
 bones/4/position = Vector3(3.723557e-17, 0.0016106815, -1.5617008e-10)
 bones/4/rotation = Quaternion(0.16448785, -3.967512e-15, 3.921695e-08, 0.98637915)
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=691226763]
+[node name="AnimationPlayer" parent="." index="1" unique_id=816692621]
 libraries/ = SubResource("AnimationLibrary_vp1j6")
