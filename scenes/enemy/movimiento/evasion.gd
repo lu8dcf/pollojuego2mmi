@@ -4,7 +4,7 @@ class_name Evasion
 
 # ==================== CONFIGURACIÓN ====================
 @export var velocidad_evasion: float = 2      # Velocidad lenta al evadir
-@export var tiempo_max_evasion: float = 2      # Tiempo máximo evadiendo antes de retroceder
+@export var tiempo_max_evasion: float = 1     # Tiempo máximo evadiendo antes de retroceder
 @export var tiempo_retroceso: float = 1        # Duración del retroceso
 @export var angulo_giro: float = 90.0            # Ángulo máximo de giro aleatorio (grados)
 @export var suavizado: float = 2.0               # Suavizado de la rotación

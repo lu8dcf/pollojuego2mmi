@@ -35,6 +35,7 @@ var direccion_actual: Vector3 = Vector3.FORWARD
 @onready var wander: Wander = $Wander
 @onready var flee: Flee = $Flee
 @onready var evasion= $Evasion
+var evadir_obstaculo= false
 var velocidad_deseada := Vector3.ZERO # velocidad de evasion
 #@onready var avoidance: ObstacleAvoidance = $Evasion
 
@@ -49,8 +50,7 @@ enum estado {
 	INACTIVO,
 	WANDER,
 	PERSIGUE,
-	FLEE,
-	EVASION
+	FLEE
 	
 }
 
@@ -251,8 +251,9 @@ func _physics_process(delta: float) -> void:
 					global_position, jugador.global_position, direccion_actual, delta
 				)
 			
-		estado.EVASION:
-			velocidad_actual = evasion.calcular_evasion(direccion_actual, delta)
+		#estado.EVASION:
+	if evadir_obstaculo:
+		velocidad_actual = evasion.calcular_evasion(direccion_actual, delta)
 			
 	if velocidad_actual.length() > 0.1:
 		# Dirección hacia donde se mueve
@@ -332,26 +333,22 @@ func _on_vision_body_exited(body: Node3D) -> void:
 func _on_bigote_area_entered(area: Area3D) -> void:
 	if !posicionado:
 		queue_free()
-	if estado_actual!=estado.EVASION:
-		estado_anterior=estado_actual
-		
-	estado_actual=estado.EVASION
+	
+	evadir_obstaculo=true
 	evasion._activar_evasion()
 		
 
 func _on_bigote_area_exited(area: Area3D) -> void:
-	estado_actual=estado_anterior
+	evadir_obstaculo=false
 	evasion._verificar_salida()
 
 func _on_bigote_body_entered(body: Node3D) -> void:
 	if !posicionado:
 		queue_free()
-	if estado_actual!=estado.EVASION:
-		estado_anterior=estado_actual
-		
-	estado_actual=estado.EVASION
+	evadir_obstaculo=true
 	evasion._activar_evasion()
+	
 
 func _on_bigote_body_exited(body: Node3D) -> void:
-	estado_actual=estado_anterior
+	evadir_obstaculo=false
 	evasion._verificar_salida()
