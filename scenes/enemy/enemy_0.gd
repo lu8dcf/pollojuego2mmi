@@ -253,11 +253,6 @@ func _physics_process(delta: float) -> void:
 			
 		estado.EVASION:
 			velocidad_actual = evasion.calcular_evasion(direccion_actual, delta)
-			var velocidad_evasion = evasion.calcular_evasion(direccion_actual, delta)
-			if velocidad_evasion.length() > 0.01:
-			# Mezclar velocidad deseada con evasión
-				velocidad_actual = (velocidad_actual.normalized() + velocidad_evasion.normalized() * evasion.fuerza_evasion).normalized() * velocidad_actual.length()
-		
 			
 	if velocidad_actual.length() > 0.1:
 		# Dirección hacia donde se mueve
@@ -339,10 +334,23 @@ func _on_bigote_area_entered(area: Area3D) -> void:
 		queue_free()
 	if estado_actual!=estado.EVASION:
 		estado_anterior=estado_actual
-		print("evadir")
+		
 	estado_actual=estado.EVASION
 	
 		
 
 func _on_bigote_area_exited(area: Area3D) -> void:
+	estado_actual=estado_anterior
+
+
+func _on_bigote_body_entered(body: Node3D) -> void:
+	if !posicionado:
+		queue_free()
+	if estado_actual!=estado.EVASION:
+		estado_anterior=estado_actual
+		
+	estado_actual=estado.EVASION
+
+
+func _on_bigote_body_exited(body: Node3D) -> void:
 	estado_actual=estado_anterior
