@@ -34,6 +34,8 @@ var velocidad: float = velocidad_base # velocidad actual
 var direccion_actual: Vector3 = Vector3.FORWARD
 @onready var wander: Wander = $Wander
 @onready var flee: Flee = $Flee
+@onready var evasion= $Evasion
+var velocidad_deseada := Vector3.ZERO # velocidad de evasion
 #@onready var avoidance: ObstacleAvoidance = $Evasion
 
 var velocidad_actual: Vector3 = Vector3.ZERO
@@ -48,12 +50,12 @@ enum estado {
 	WANDER,
 	PERSIGUE,
 	FLEE,
-	DERECHA,
-	IZQUIERDA
+	EVASION
+	
 }
 
 # colisiiones
-#@onready var bigote_der: Area3D = $bigote_der
+@onready var bigote: Area3D = $bigote
 
 var posicionado = false  # cuando se encuentre correctamente en el piso sin tocar la pared
 # seek persigue
@@ -249,11 +251,13 @@ func _physics_process(delta: float) -> void:
 					global_position, jugador.global_position, direccion_actual, delta
 				)
 			
-		estado.DERECHA:
-			rotation.y += 1 * velocidad_giro * delta	
-			
-		estado.IZQUIERDA:
-			rotation.y += 3 *  velocidad_giro * delta
+		estado.EVASION:
+			velocidad_actual = evasion.calcular_evasion(direccion_actual, delta)
+			var velocidad_evasion = evasion.calcular_evasion(direccion_actual, delta)
+			if velocidad_evasion.length() > 0.01:
+			# Mezclar velocidad deseada con evasión
+				velocidad_actual = (velocidad_actual.normalized() + velocidad_evasion.normalized() * evasion.fuerza_evasion).normalized() * velocidad_actual.length()
+		
 			
 	if velocidad_actual.length() > 0.1:
 		# Dirección hacia donde se mueve
@@ -331,19 +335,14 @@ func _on_vision_body_exited(body: Node3D) -> void:
 
 
 func _on_bigote_area_entered(area: Area3D) -> void:
-	
 	if !posicionado:
-		pass
-		#queue_free()
+		queue_free()
+	if estado_actual!=estado.EVASION:
+		estado_anterior=estado_actual
+		print("evadir")
+	estado_actual=estado.EVASION
+	
 		
 
 func _on_bigote_area_exited(area: Area3D) -> void:
-	pass # Replace with function body.
-
-
-func _on_bigote_body_entered(body: Node3D) -> void:
-	pass # Replace with function body.
-
-
-func _on_bigote_body_exited(body: Node3D) -> void:
-	pass # Replace with function body.
+	estado_actual=estado_anterior
