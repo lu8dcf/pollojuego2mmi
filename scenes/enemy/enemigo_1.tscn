@@ -4,7 +4,8 @@
 
 [sub_resource type="Animation" id="Animation_64bgc"]
 resource_name = "ataque_bicho"
-length = 0.8333333333333334
+length = 0.8333333
+loop_mode = 1
 tracks/0/type = "rotation_3d"
 tracks/0/imported = true
 tracks/0/enabled = true
@@ -173,21 +174,21 @@ _data = {
 
 [node name="enemigo_1" unique_id=988913052 instance=ExtResource("1_64bgc")]
 
-[node name="Babosa" parent="." index="0" unique_id=610981853]
+[node name="Babosa" parent="." index="0" unique_id=1129203504]
 transform = Transform3D(-100, 8.742277e-06, 0, 3.8213708e-13, 4.3711384e-06, 99.99999, 8.742278e-06, 99.99999, -4.3711384e-06, -0.0026805997, 0.0872888, 0.012626864)
 
-[node name="Skeleton3D" parent="Babosa" index="0" unique_id=781369814]
-bones/0/rotation = Quaternion(0.007864077, 0.00026805987, 0.034050673, 0.99938923)
-bones/0/scale = Vector3(1.0185094, 0.99999994, 0.99999994)
-bones/1/rotation = Quaternion(0.15966076, -2.973798e-09, 1.8997234e-08, 0.98717195)
-bones/2/rotation = Quaternion(0.37194532, 2.1683482e-09, 9.0617256e-08, 0.92825466)
+[node name="Skeleton3D" parent="Babosa" index="0" unique_id=1589763620]
+bones/0/rotation = Quaternion(0.007866771, -0.00017163323, -0.021826757, 0.9997309)
+bones/0/scale = Vector3(1.0680717, 0.99999994, 0.99999994)
+bones/1/rotation = Quaternion(0.1593624, 0.009776622, 0.054964017, 0.9856404)
+bones/2/rotation = Quaternion(0.3621085, 0.14903659, 0.1708315, 0.90414715)
 bones/4/rotation = Quaternion(0.6119519, -1.1032948e-08, 1.6111456e-07, 0.790895)
-bones/5/rotation = Quaternion(0.04334931, -0.015731638, -0.13808297, 0.9893465)
-bones/6/rotation = Quaternion(-0.19748288, 0.004955701, 0.094993226, 0.9756804)
-bones/7/rotation = Quaternion(-0.21954733, -0.0043954407, -0.032243945, 0.97505903)
-bones/8/rotation = Quaternion(-0.4807422, -0.0097623505, -0.025919005, 0.8764246)
-bones/9/rotation = Quaternion(0.0033538193, 2.286126e-05, 0.0068098507, 0.9999712)
-bones/10/rotation = Quaternion(-0.4065831, -0.026224751, -0.0496547, 0.9118865)
+bones/5/rotation = Quaternion(0.037447784, -0.0075851427, -0.07038767, 0.9967877)
+bones/6/rotation = Quaternion(-0.19998387, 0.0035809595, 0.07170785, 0.9771651)
+bones/7/rotation = Quaternion(-0.22048223, 0.00026458132, 0.001986047, 0.97538894)
+bones/8/rotation = Quaternion(-0.47928265, 0.0006349363, 0.0016903289, 0.87765884)
+bones/9/rotation = Quaternion(-0.0088390885, 6.8275665e-05, -0.0077108154, 0.9999312)
+bones/10/rotation = Quaternion(-0.39752808, 0.008870849, 0.016363781, 0.9174012)
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=261316334]
+[node name="AnimationPlayer" parent="." index="1" unique_id=1131905758]
 libraries/ = SubResource("AnimationLibrary_wha0n")

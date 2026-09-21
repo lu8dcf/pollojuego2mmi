@@ -53,8 +53,8 @@ enum estado {
 }
 
 # colisiiones
-@onready var bigote_der: Area3D = $bigote_der
-@onready var bigote_izq: Area3D = $bigote_izq
+#@onready var bigote_der: Area3D = $bigote_der
+
 var posicionado = false  # cuando se encuentre correctamente en el piso sin tocar la pared
 # seek persigue
 @export var distancia_frenado: float =5.0     # A qué distancia empieza a frenar
@@ -63,8 +63,7 @@ var posicionado = false  # cuando se encuentre correctamente en el piso sin toca
 
 func _ready():
 	# Areas de colision
-	bigote_der.position = Vector3(-0.3, 0.5, 0)
-	bigote_izq.position = Vector3(+0.3, 0.5, 0)
+
 	cargar_modelo()
 	cargar_movimiento()
 	add_to_group('enemy')
@@ -109,7 +108,10 @@ func cargar_movimiento():
 	movimiento.owner = self  #  Establece el owner manualmente
 
 func tipo_enemigo():
-	animation_player.play("caminar_bicho")
+	if tipo==1 or tipo==3:
+		animation_player.play("caminar_bicho")
+	else:
+		animation_player.play("caminata_bicho")
 	match tipo:
 		1:
 			#Chaser (ninja) debe hacer Seek para perseguir al jugador cuando éste se acerca, o cuando Chaser se acerca al jugador mientras hace Wander. Si el jugador se aleja una cierta distancia, Chaser debe volver a hacer Wander. Además Chaser debe hacer Arrive cuando llega a la posición del jugador.
@@ -210,11 +212,15 @@ func _physics_process(delta: float) -> void:
 				velocidad_actual.x = 0
 				velocidad_actual.z = 0
 				
+				animation_player.play("ataque_bicho")				
+				
 			else:
 				# Calcular dirección al jugador (solo XZ)
 				direccion = (jugador.global_position - global_position)
 				direccion.y = 0
 				direccion = direccion.normalized()
+				
+				animation_player.play("caminar_bicho")
 			
 				# Aplicar Arrive: velocidad proporcional a la distancia
 				var factor_velocidad = 1.0
@@ -324,25 +330,7 @@ func _on_vision_body_exited(body: Node3D) -> void:
 		
 
 
-func _on_bigote_izq_area_entered(area: Area3D) -> void:
-	if !posicionado:
-		queue_free()
-	if estado_actual!=estado.DERECHA and estado_actual!=estado.IZQUIERDA:
-		estado_anterior=estado_actual
-	estado_actual=estado.DERECHA
 
-
-func _on_bigote_izq_area_exited(area: Area3D) -> void:
-	estado_actual=estado_anterior
+#	if !posicionado:
+#		queue_free()
 	
-
-func _on_bigote_der_area_entered(area: Area3D) -> void:
-	if !posicionado:
-		queue_free()
-	if estado_actual!=estado.DERECHA and estado_actual!=estado.IZQUIERDA:
-		estado_anterior=estado_actual
-	
-	estado_actual=estado.IZQUIERDA
-
-func _on_bigote_der_area_exited(area: Area3D) -> void:
-	estado_actual=estado_anterior
