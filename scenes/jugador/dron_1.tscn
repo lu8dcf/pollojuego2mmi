@@ -9,7 +9,10 @@ transform = Transform3D(-0.99998164, 0, -0.0060515106, 0, 1, 0, 0.0060515106, 0,
 transform = Transform3D(2.7836397, 0, 2.220446e-16, 0, -3.3183568e-07, 2.7836392, 1.8626451e-09, -2.7836394, -3.318357e-07, 0.00028320315, 0.019525798, -0.004141675)
 
 [node name="Skeleton3D" parent="Esqueleto_004" index="0" unique_id=81659280]
-bones/1/rotation = Quaternion(-0.2289075, -0.009538595, -0.049565356, 0.9721387)
-bones/2/rotation = Quaternion(0.055291675, 0.087529816, 0.05741011, 0.992968)
-bones/5/rotation = Quaternion(0.4928445, 0.22318804, 0.48523954, 0.6869018)
-bones/8/rotation = Quaternion(0.21323828, -0.22318795, -0.6579381, 0.6869018)
+bones/1/rotation = Quaternion(-0.2316045, -0.0096873, -0.049542412, 0.9714994)
+bones/2/rotation = Quaternion(0.06012144, -4.2067295e-05, 0.05233072, 0.9968184)
+bones/5/rotation = Quaternion(0.6186702, 8.529123e-08, 0.30919293, 0.72225136)
+bones/8/rotation = Quaternion(0.40611565, -3.3633683e-09, -0.559842, 0.72225136)
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=919320486]
+autoplay = &"Esqueleto_004|dron_vuelo"
