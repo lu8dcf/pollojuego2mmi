@@ -7,7 +7,7 @@ extends Node3D
 
 
 const enemigo_base = preload("uid://b8go34qeye00a") # Escena enemy0
-
+const dron_base = preload("uid://b12vbvuoa8edk") # Escena dron
 
 var is_menu_mode: bool = false
 var ya_hizo=false
@@ -22,6 +22,7 @@ func _ready() -> void:
 	# Configurar la cámara
 	if menu_camera:
 		menu_camera.look_at_target = self
+	
 
 func enable_menu_mode() -> void:
 	"""Activar modo menú - NO pausa el juego"""
@@ -83,6 +84,7 @@ func spawn_enemy():
 	instanciar_enemigo()
 
 func instanciar_enemigo():
+	instanciar_drone()
 	if is_multiplayer_authority() and get_tree().get_node_count_in_group('enemy') < 20:
 		for player in get_tree().get_node_count_in_group("Jugadores"):
 			var new_target = fabrica_enemigos(0)
@@ -122,3 +124,13 @@ func partida_unsolojugador():
 	
 	set_process(true)
 	
+
+func instanciar_drone():
+	if is_multiplayer_authority() and get_tree().get_node_count_in_group('drone') < 2:
+		for player in get_tree().get_node_count_in_group("Jugadores"):
+			var new_target = dron_base.instantiate()
+			var rand_x = randf_range(GlobalJuego.mapa_x_min, GlobalJuego.mapa_x_max)
+			var rand_z = randf_range(GlobalJuego.mapa_z_min, GlobalJuego.mapa_z_max)
+			#print (rand_x," ",rand_z)
+			new_target.position = Vector3(rand_x, 2.0, rand_z)
+			spawn_container.add_child(new_target, true)	

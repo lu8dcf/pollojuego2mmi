@@ -70,7 +70,7 @@ func _generar_direccion_aleatoria() -> void:
 	var nueva_direccion := ultima_direccion.rotated(Vector3.UP, angulo)
 	nueva_direccion.y = 0
 	direccion_evasion = nueva_direccion.normalized()
-	print ("evasion ",direccion_evasion)
+	#print ("evasion ",direccion_evasion)
 	
 	
 

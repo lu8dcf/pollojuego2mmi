@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b12vbvuoa8edk"]
 
 [ext_resource type="PackedScene" uid="uid://duvh2htr2qauu" path="res://scenes/jugador/dron_1.tscn" id="1_f43dp"]
+[ext_resource type="Script" uid="uid://demuw1ytn34vw" path="res://scenes/jugador/dron.gd" id="1_niphl"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sugfe"]
 height = 0.0761261
@@ -10,9 +11,10 @@ radius = 0.10253906
 height = 0.13720703
 radius = 0.12060547
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1793350400]
+[node name="Dron" type="CharacterBody3D" unique_id=1793350400]
 collision_layer = 4
 collision_mask = 15
+script = ExtResource("1_niphl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=88504575]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.009391785, 0)
