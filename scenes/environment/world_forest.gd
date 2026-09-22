@@ -126,12 +126,18 @@ func partida_unsolojugador():
 	
 
 func instanciar_drone():
+	
 	if is_multiplayer_authority() and get_tree().get_node_count_in_group('drone') < 2:
 		for player in get_tree().get_node_count_in_group("Jugadores"):
 			var new_target = dron_base.instantiate()
-			var rand_x = randf_range(GlobalJuego.mapa_x_min, GlobalJuego.mapa_x_max)
-			var rand_z = randf_range(GlobalJuego.mapa_z_min, GlobalJuego.mapa_z_max)
-			#print (rand_x," ",rand_z)
-			new_target.position = Vector3(rand_x, 2.0, rand_z)
+			new_target.position = Vector3(30, 2.0, 30)
+			new_target.lado = 1
+			spawn_container.add_child(new_target, true)	
+			print ("drone")
+			
+			new_target = dron_base.instantiate()
+			
+			new_target.position = Vector3(31, 2.0, 31)
+			new_target.lado = -1
 			spawn_container.add_child(new_target, true)	
 			print ("drone")

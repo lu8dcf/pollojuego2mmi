@@ -22,6 +22,8 @@ var tiempo_evasion_restante: float = 0.0
 var obstaculos_cercanos: Array[Node3D] = []
 
 @onready var area_obstaculos: Area3D = $bigote
+@onready var modelo = $modelo
+var animation_player : AnimationPlayer
 var posicionado= false
 
 # ==================== INICIALIZACIÓN ====================
@@ -34,11 +36,27 @@ func _ready() -> void:
 	add_to_group('drone')
 	jugador = get_tree().get_first_node_in_group("Jugadores")
 	
-
+func cargar_modelo(): # tipo de enemigo
+	var escena_glb = load("res://scenes/jugador/dron_1.tscn")
+	var instancia_glb = escena_glb.instantiate()
+	modelo.add_child(instancia_glb)
+	# Buscar el AnimationPlayer dentro de esta instancia
+	animation_player = _find_animation_player(instancia_glb)	
+	animation_player.play("dron_vuelo")
+	
+func _find_animation_player(node: Node) -> AnimationPlayer: # agrega las animaciones del mnodelo a la pieza
+	for child in node.get_children():
+		if child is AnimationPlayer:
+			return child
+		var found = _find_animation_player(child)
+		if found:
+			return found
+	return null		
+	
 # Método para asignar el jugador objetivo y el lado
 func configurar(jugador_objetivo: Node3D, lado_asignado: int) -> void:
 	
-	lado = lado_asignado  # 1 = derecha, -1 = izquierda
+	pass
 
 # ==================== LÓGICA PRINCIPAL ====================
 func _physics_process(delta: float) -> void:
@@ -79,7 +97,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# 8. Forzar Y fija (por si acaso)
-	global_position.y = altura_fija
+	global_position.y = 1
 	
 	# 9. Rotar hacia el jugador
 	_rotar_hacia_jugador(delta)
