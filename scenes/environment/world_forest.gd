@@ -134,3 +134,4 @@ func instanciar_drone():
 			#print (rand_x," ",rand_z)
 			new_target.position = Vector3(rand_x, 2.0, rand_z)
 			spawn_container.add_child(new_target, true)	
+			print ("drone")
